@@ -1,12 +1,17 @@
 package ru.ranepa.model;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Employee {
+
     private Long id;
     private String name;
     private String position;
     private BigDecimal salary;
     private LocalDate hireDate;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public Employee(Long id, String name, String position, BigDecimal salary, LocalDate hireDate) {
         this.id = id;
@@ -14,6 +19,16 @@ public class Employee {
         this.position = position;
         this.salary = salary;
         this.hireDate = hireDate;
+    }
+
+    // Геттеры и сеттеры для всех полей
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -48,7 +63,9 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String toString() {
+        return String.format("ID: %d | %s | %s | %.2f руб. | Date of admission: %s",
+                id, name, position, salary, hireDate.format(DATE_FORMATTER));
     }
 }

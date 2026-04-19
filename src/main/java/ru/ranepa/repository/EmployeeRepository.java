@@ -1,36 +1,47 @@
 package ru.ranepa.repository;
 
 import ru.ranepa.model.Employee;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class EmployeeRepository {
-    private HashMap<Long, Employee> employees = new HashMap<>();
 
-    public boolean save (Employee employee) {
-        long id = employee.getId();
-        employees.put(id, employee);
-        return false;
+    // Хранилище сотрудников: ключ - ID, значение - объект Employee
+    private final Map<Long, Employee> employees = new HashMap<>();
+
+    // Счетчик для генерации новых ID
+    private long nextId = 1;
+
+    // Сохраняет сотрудника в репозиторий
+    public Employee save(Employee employee) {
+        if (employee.getId() == null) {
+            employee.setId(nextId++);
+        }
+        employees.put(employee.getId(), employee);
+        return employee;
     }
 
+    // Возвращает список всех сотрудников
     public List<Employee> findAll() {
-        return employees.values()
-                .stream()
-                .toList();
+        return new ArrayList<>(employees.values());
     }
 
-    public Employee findById(long id) {
-        if (!employees.containsKey(id)){
-            throw new IllegalArgumentException("Такого сотрудника нет");
-        }
-        return employees.get(id);
+    // Ищет сотрудника по ID
+    public Optional<Employee> findById(Long id) {
+        return Optional.ofNullable(employees.get(id));
     }
+
+    // Удаляет сотрудника по ID
     public boolean delete(Long id) {
-        if (!employees.containsKey(id)) {
-            System.out.println("Такого сотрудника нет");
-            return false;
-        }
-        employees.remove(id);
-        return true;
+        return employees.remove(id) != null;
+    }
+
+    // Проверяет существование сотрудника по ID
+    public boolean existsById(Long id) {
+        return employees.containsKey(id);
+    }
+
+    // Возвращает количество сотрудников
+    public int count() {
+        return employees.size();
     }
 }
