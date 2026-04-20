@@ -65,7 +65,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format("ID: %d | %s | %s | %.2f руб. | Date of admission: %s",
+        return String.format("ID: %d | %s | %s | %.2f rub. | Date of admission: %s",
                 id, name, position, salary, hireDate.format(DATE_FORMATTER));
     }
 }

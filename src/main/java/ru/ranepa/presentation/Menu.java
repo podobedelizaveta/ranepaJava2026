@@ -26,12 +26,12 @@ public class Menu {
             int choice = readIntInput("Choose option: ");
 
             switch (choice) {
-                case 1 -> showAllEmployees();
-                case 2 -> addEmployee();
-                case 3 -> deleteEmployee();
-                case 4 -> findEmployeeById();
-                case 5 -> showStatistics();
-                case 6 -> filterByPosition();
+                case 1 -> showAllEmployees();     // Показать всех
+                case 2 -> addEmployee();          // Добавить
+                case 3 -> deleteEmployee();       // Удалить
+                case 4 -> findEmployeeById();     // Найти по ID
+                case 5 -> showStatistics();       // Показать статистику
+                case 6 -> filterByPosition();     // Фильтр по должности
                 case 0 -> {
                     System.out.println("Goodbye!");
                     return;
@@ -47,7 +47,7 @@ public class Menu {
         System.out.println("2. Add employee");
         System.out.println("3. Delete employee");
         System.out.println("4. Find employee by ID");
-        System.out.println("5. Show statistics (avg salary + top employee)");
+        System.out.println("5. Show statistics");
         System.out.println("6. Filter employees by position");
         System.out.println("0. Exit");
     }
