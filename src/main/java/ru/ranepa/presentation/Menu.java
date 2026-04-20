@@ -32,8 +32,10 @@ public class Menu {
                 case 4 -> findEmployeeById();     // Найти по ID
                 case 5 -> showStatistics();       // Показать статистику
                 case 6 -> filterByPosition();     // Фильтр по должности
+                case 7 -> sortByHireDate();       // Сортировка по дате приема
+                case 8 -> sortByName();           // Сортировка по имени
                 case 0 -> {
-                    System.out.println("Goodbye!");
+                    System.out.println("Goodbye! Have a nice day!");
                     return;
                 }
                 default -> System.out.println("Error: please choose option from 0 to 6.");
@@ -49,6 +51,8 @@ public class Menu {
         System.out.println("4. Find employee by ID");
         System.out.println("5. Show statistics");
         System.out.println("6. Filter employees by position");
+        System.out.println("7. Filter employees by hire date");
+        System.out.println("8. Filter employees by name");
         System.out.println("0. Exit");
     }
 
@@ -62,7 +66,7 @@ public class Menu {
         System.out.println("\nAll Employees");
         System.out.printf("%-5s %-25s %-20s %-12s %-15s%n",
                 "ID", "Name", "Position", "Salary", "Hire Date");
-        System.out.println("------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------");
 
         for (Employee e : employees) {
             System.out.printf("%-5d %-25s %-20s %-12.0f %-15s%n",
@@ -83,7 +87,7 @@ public class Menu {
         double salary = readDoubleInput("Enter salary: ");
         LocalDate hireDate = readDateInput("Enter hire date (dd.MM.yyyy): ");
 
-        Employee employee = new Employee(null, name, position, BigDecimal.valueOf(salary), hireDate);
+        Employee employee = new Employee( name, position, BigDecimal.valueOf(salary), hireDate);
         Employee saved = service.addEmployee(employee);
 
         System.out.printf("Employee added successfully with ID: %d%n", saved.getId());
@@ -148,6 +152,56 @@ public class Menu {
         for (Employee e : filtered) {
             System.out.println(e);
         }
+    }
+
+    private void sortByHireDate() {
+        System.out.println("\nFilter Employees by Hire Date");
+        List<Employee> sorted = service.sortByHireDate();
+
+        if (sorted.isEmpty()) {
+            System.out.println("Employee list is empty.");
+            return;
+        }
+
+        System.out.println("\nEmployees sorted by hire date:");
+        System.out.printf("%-5s %-25s %-20s %-12s %-15s%n",
+                "ID", "Name", "Position", "Salary", "Hire Date");
+        System.out.println("----------------------------------------------------------------------------");
+
+        for (Employee e : sorted) {
+            System.out.printf("%-5d %-25s %-20s %-12.0f %-15s%n",
+                    e.getId(),
+                    truncateString(e.getName(), 25),
+                    truncateString(e.getPosition(), 20),
+                    e.getSalary(),
+                    e.getHireDate().format(dateFormatter));
+        }
+        System.out.println("Total employees: " + sorted.size());
+    }
+
+    private void sortByName() {
+        System.out.println("\nFilter Employees by Name");
+        List<Employee> sorted = service.sortByName();
+
+        if (sorted.isEmpty()) {
+            System.out.println("Employee list is empty.");
+            return;
+        }
+
+        System.out.println("\nEmployees sorted by name:");
+        System.out.printf("%-5s %-25s %-20s %-12s %-15s%n",
+                "ID", "Name", "Position", "Salary", "Hire Date");
+        System.out.println("----------------------------------------------------------------------------");
+
+        for (Employee e : sorted) {
+            System.out.printf("%-5d %-25s %-20s %-12.0f %-15s%n",
+                    e.getId(),
+                    truncateString(e.getName(), 25),
+                    truncateString(e.getPosition(), 20),
+                    e.getSalary(),
+                    e.getHireDate().format(dateFormatter));
+        }
+        System.out.println("Total employees: " + sorted.size());
     }
 
     private int readIntInput(String prompt) {

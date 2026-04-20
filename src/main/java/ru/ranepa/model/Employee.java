@@ -13,8 +13,8 @@ public class Employee {
     private LocalDate hireDate;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    public Employee(Long id, String name, String position, BigDecimal salary, LocalDate hireDate) {
-        this.id = id;
+    public Employee(String name, String position, BigDecimal salary, LocalDate hireDate) {
+        //this.id = id;
         this.name = name;
         this.position = position;
         this.salary = salary;

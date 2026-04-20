@@ -24,13 +24,13 @@ public class HrmApplication {
 
     // Добавляет тестовых сотрудников в репозиторий
     private static void addTestEmployees(EmployeeRepository repository) {
-            repository.save(new Employee(null, "Sasha Kim", "Manager",
+            repository.save(new Employee("Sasha Kim", "Manager",
                     BigDecimal.valueOf(150000), LocalDate.of(2022, 1, 1)));
-            repository.save(new Employee(null, "Maria Ivanova", "Tester",
+            repository.save(new Employee("Maria Ivanova", "Tester",
                     BigDecimal.valueOf(80000), LocalDate.of(2024, 1, 1)));
-            repository.save(new Employee(null, "Ivan Petrov", "Developer",
+            repository.save(new Employee("Ivan Petrov", "Developer",
                     BigDecimal.valueOf(100000), LocalDate.of(2023, 1, 15)));
-            repository.save(new Employee(null, "Elizaveta Podobed", "Developer",
+            repository.save(new Employee( "Elizaveta Podobed", "Developer",
                     BigDecimal.valueOf(120000), LocalDate.of(2023, 8, 1)));
     }
 }
